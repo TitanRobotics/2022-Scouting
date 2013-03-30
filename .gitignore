@@ -4,3 +4,6 @@
 *.jar
 *.war
 *.ear
+
+# Allow OpenCSV jar #
+!opencsv-2.3.jar
