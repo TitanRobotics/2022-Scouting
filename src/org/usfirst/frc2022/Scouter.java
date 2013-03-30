@@ -1,4 +1,4 @@
-package scouting;
+package org.usfirst.frc2022;
 
 import au.com.bytecode.opencsv.CSVWriter;
 import java.awt.event.ActionEvent;
