@@ -373,16 +373,18 @@ public class Scouter extends JFrame
       OfOrDe = "Offense";
     }
 
-    String csv = "C:\\Users\\Public\\Scouter 2013\\CSV files\\" + i + "_" + j + ".csv";
+    //String csv = "C:\\Users\\Public\\Scouter 2013\\CSV files\\" + i + "_" + j + ".csv";
     CSVWriter writer = null;
     try {
-      writer = new CSVWriter(new FileWriter(csv));
+      writer = new CSVWriter(new FileWriter(System.getProperty("user.dir")+i+"_"+j+ ".csv"));
     }
     catch (IOException e) {
       e.printStackTrace();
     }
 
-    String[] info = (i + "#" + j + "#" + BlueOrRed + "#" + OfOrDe + "#" + aa + "#" + a3 + "#" + a2 + "#" + a1 + "#" + ap + "#" + ta + "#" + t3 + "#" + t2 + "#" + t1 + "#" + c).split("#");
+    String[] info = (i + "#" + j + "#" + BlueOrRed + "#" + OfOrDe + "#" + aa + "#"
+            + a3 + "#" + a2 + "#" + a1 + "#" + ap + "#" + ta + "#" + t3 + "#"
+            + t2 + "#" + t1 + "#" + c).split("#");
 
     writer.writeNext(info);
     try
