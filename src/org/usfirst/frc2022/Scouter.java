@@ -21,7 +21,7 @@ public class Scouter
           DefenseLevel = "Meh Defense";}
         if (DefenseLevel.equals("1")){
           DefenseLevel = "Bad Defense";}
-        else {
+        if (DefenseLevel.equals("0")) { //This is weird but it doesn't work otherwise
           DefenseLevel = "No Defense";
         }
 
