@@ -98,7 +98,11 @@ public class ScoutingGUI extends JFrame
         //Create the window
         setTitle("Scouter 2013");
         setVisible(true);
+<<<<<<< HEAD
         setSize(400, 510);
+=======
+        setSize(200, 700);
+>>>>>>> 9c4c49e1d34017f6c37ccc181bb30f19a0b99828
         setResizable(true);
         setDefaultCloseOperation(3);
         
@@ -265,8 +269,7 @@ public class ScoutingGUI extends JFrame
 
                     Scouter.save(path, teamNumber.getText(), matchNumber.getText(), BorR, 
                             Dlevel, data[0], data[1], data[2], data[3], data[4], 
-                            data[5], data[6], data[7], data[8], data[9], climb_level);
-                }
+                            data[5], data[6], data[7], data[8], data[9], climb_level);                }
             }
         });
         
