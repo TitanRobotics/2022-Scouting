@@ -98,11 +98,7 @@ public class ScoutingGUI extends JFrame
         //Create the window
         setTitle("Scouter 2013");
         setVisible(true);
-<<<<<<< HEAD
         setSize(400, 510);
-=======
-        setSize(200, 700);
->>>>>>> 9c4c49e1d34017f6c37ccc181bb30f19a0b99828
         setResizable(true);
         setDefaultCloseOperation(3);
         
