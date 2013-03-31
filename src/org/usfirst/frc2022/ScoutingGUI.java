@@ -47,7 +47,7 @@ public class ScoutingGUI extends JFrame
     String team = "";
     String match = "";
     boolean BorR = false;
-    boolean OorD = false;
+    int Dlevel = 0;
     int climb_level = 0;
     
     //Declaration of GUI elements
@@ -81,9 +81,11 @@ public class ScoutingGUI extends JFrame
     JButton climb2 = new JButton("20");
     JButton climb3 = new JButton("30");
     
-    JButton Offense = new JButton("Offense");
-    JButton Defense = new JButton("Defense");
-
+  JButton DefenseGood = new JButton("Good Defense");
+  JButton DefenseMeh = new JButton("Meh Defense");
+  JButton DefenseBad = new JButton("Bad Defense");
+  JButton DefenseNo = new JButton("No Defense");
+  
     final JFileChooser fc = new JFileChooser();
     JButton save = new JButton("Save Results");
 
@@ -95,7 +97,7 @@ public class ScoutingGUI extends JFrame
         setTitle("Scouter 2013");
         setVisible(true);
         setSize(200, 700);
-        setResizable(false);
+        setResizable(true);
         setDefaultCloseOperation(3);
         
         //Initialize uninitialized GUI elements
@@ -191,8 +193,10 @@ public class ScoutingGUI extends JFrame
         this.jp.add(this.climb1);
         this.jp.add(this.climb2);
         this.jp.add(this.climb3);
-        this.jp.add(this.Offense);
-        this.jp.add(this.Defense);
+        this.jp.add(this.DefenseGood);
+        this.jp.add(this.DefenseMeh);
+        this.jp.add(this.DefenseBad);
+        this.jp.add(this.DefenseNo);
         this.jp.add(this.save);
         
         //Add action listeners to previous GUI elements
@@ -217,18 +221,29 @@ public class ScoutingGUI extends JFrame
             }
         });
     
-        this.Offense.addActionListener(new ActionListener() {
+        this.DefenseGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                OorD = false;
+                Dlevel = 3;
             }
         });
     
-        this.Defense.addActionListener(new ActionListener() {
+        this.DefenseMeh.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                OorD = true;
+                Dlevel = 2;
             }
         });
-    
+        this.DefenseBad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Dlevel = 1;
+            }
+        });
+              
+        this.DefenseNo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Dlevel = 0;
+            }
+        });
+        
         this.save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
@@ -244,7 +259,7 @@ public class ScoutingGUI extends JFrame
                     }
 
                     Scouter.save(path, teamNumber.getText(), matchNumber.getText(), BorR, 
-                            OorD, data[0], data[1], data[2], data[3], data[4], 
+                            Dlevel, data[0], data[1], data[2], data[3], data[4], 
                             data[5], data[6], data[7], data[8], climb_level);
                 }
             }
