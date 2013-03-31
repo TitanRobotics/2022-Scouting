@@ -47,7 +47,7 @@ public class ScoutingGUI extends JFrame
     String team = "";
     String match = "";
     boolean BorR = false;
-    boolean OorD = false;
+    int Dlevel = 0;
     int climb_level = 0;
     
     //Declaration of GUI elements
@@ -59,9 +59,9 @@ public class ScoutingGUI extends JFrame
     JButton blue = new JButton("Blue");
     JButton red = new JButton("Red");
 
-    JButton[] add = new JButton[9];
-    JButton[] subtract = new JButton[9];
-    JLabel[] label = new JLabel[9];
+    JButton[] add = new JButton[10];
+    JButton[] subtract = new JButton[10];
+    JLabel[] label = new JLabel[10];
     
     //JLabel auto = new JLabel("Autonomous");
     JLabel autoAttempt = new JLabel("Autonomous Shots Attempted");
@@ -75,15 +75,19 @@ public class ScoutingGUI extends JFrame
     JLabel tele_2 = new JLabel("    2 Pointer shots Made    ");
     JLabel tele_1 = new JLabel("    1 Pointer shots Made    ");
     
+    JLabel pyramid = new JLabel("    Pyramid shots Made    ");
+    
     JLabel climb = new JLabel("    Climb Points Gained:  ");
     JLabel climbPoints = new JLabel(this.climb_level + "    ");
     JButton climb1 = new JButton("10");
     JButton climb2 = new JButton("20");
     JButton climb3 = new JButton("30");
     
-    JButton Offense = new JButton("Offense");
-    JButton Defense = new JButton("Defense");
-
+  JButton DefenseGood = new JButton("Good Defense");
+  JButton DefenseMeh = new JButton("Meh Defense");
+  JButton DefenseBad = new JButton("Bad Defense");
+  JButton DefenseNo = new JButton("No Defense");
+  
     final JFileChooser fc = new JFileChooser();
     JButton save = new JButton("Save Results");
 
@@ -94,15 +98,15 @@ public class ScoutingGUI extends JFrame
         //Create the window
         setTitle("Scouter 2013");
         setVisible(true);
-        setSize(200, 700);
-        setResizable(false);
+        setSize(400, 510);
+        setResizable(true);
         setDefaultCloseOperation(3);
         
         //Initialize uninitialized GUI elements
-        for (int i = 0; i<9; i++){
-        add[i] = new JButton("+1");
-        subtract[i] = new JButton("-1");
-        label[i] = new JLabel("0");
+        for (int i = 0; i<10; i++){
+            add[i] = new JButton("+1");
+            subtract[i] = new JButton("-1");
+            label[i] = new JLabel("0");
         }
         
         //Add GUI elements to JPanel
@@ -130,7 +134,7 @@ public class ScoutingGUI extends JFrame
         
         //Add identical buttons and their respective labels/action listeners
         
-        for (int i = 0; i<9; i++){
+        for (int i = 0; i<10; i++){
             if (i == 0){                    
                 this.jp.add(autoAttempt);
             }
@@ -155,8 +159,11 @@ public class ScoutingGUI extends JFrame
             else if (i == 7){
                 this.jp.add(tele_2);
             }
-            else {
+            else if (i==8){
                 this.jp.add(tele_1);
+            }
+            else{
+                this.jp.add(pyramid);
             }
             this.jp.add(this.subtract[i]);                      // -1
             this.jp.add(this.label[i]);                         // 0
@@ -191,8 +198,10 @@ public class ScoutingGUI extends JFrame
         this.jp.add(this.climb1);
         this.jp.add(this.climb2);
         this.jp.add(this.climb3);
-        this.jp.add(this.Offense);
-        this.jp.add(this.Defense);
+        this.jp.add(this.DefenseGood);
+        this.jp.add(this.DefenseMeh);
+        this.jp.add(this.DefenseBad);
+        this.jp.add(this.DefenseNo);
         this.jp.add(this.save);
         
         //Add action listeners to previous GUI elements
@@ -217,18 +226,29 @@ public class ScoutingGUI extends JFrame
             }
         });
     
-        this.Offense.addActionListener(new ActionListener() {
+        this.DefenseGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                OorD = false;
+                Dlevel = 3;
             }
         });
     
-        this.Defense.addActionListener(new ActionListener() {
+        this.DefenseMeh.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                OorD = true;
+                Dlevel = 2;
             }
         });
-    
+        this.DefenseBad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Dlevel = 1;
+            }
+        });
+              
+        this.DefenseNo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Dlevel = 0;
+            }
+        });
+        
         this.save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
@@ -238,14 +258,14 @@ public class ScoutingGUI extends JFrame
                     File file = fc.getSelectedFile();
                     String path = file.getAbsolutePath();
                 
-                    int[] data = new int[9];
-                    for (int i = 0; i<9; i++){
+                    int[] data = new int[10];
+                    for (int i = 0; i<10; i++){
                         data[i] = integer(label[i].getText());
                     }
 
                     Scouter.save(path, teamNumber.getText(), matchNumber.getText(), BorR, 
-                            OorD, data[0], data[1], data[2], data[3], data[4], 
-                            data[5], data[6], data[7], data[8], climb_level);
+                            Dlevel, data[0], data[1], data[2], data[3], data[4], 
+                            data[5], data[6], data[7], data[8], data[9], climb_level);
                 }
             }
         });
