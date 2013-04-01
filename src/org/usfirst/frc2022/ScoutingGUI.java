@@ -59,9 +59,9 @@ public class ScoutingGUI extends JFrame
     JButton blue = new JButton("Blue");
     JButton red = new JButton("Red");
 
-    JButton[] add = new JButton[10];
-    JButton[] subtract = new JButton[10];
-    JLabel[] label = new JLabel[10];
+    JButton[] add = new JButton[12];
+    JButton[] subtract = new JButton[12];
+    JLabel[] label = new JLabel[12];
     
     //JLabel auto = new JLabel("Autonomous");
     JLabel autoAttempt = new JLabel("Autonomous Shots Attempted");
@@ -76,6 +76,9 @@ public class ScoutingGUI extends JFrame
     JLabel tele_1 = new JLabel("    1 Pointer shots Made    ");
     
     JLabel pyramid = new JLabel("    Pyramid shots Made    ");
+    
+    JLabel fouls = new JLabel("    Fouls Made    ");
+    JLabel tfouls = new JLabel("    Technical Fouls Made    ");
     
     JLabel climb = new JLabel("    Climb Points Gained:  ");
     JLabel climbPoints = new JLabel(this.climb_level + "    ");
@@ -98,12 +101,12 @@ public class ScoutingGUI extends JFrame
         //Create the window
         setTitle("Scouter 2013");
         setVisible(true);
-        setSize(400, 510);
+        setSize(400, 575);
         setResizable(true);
         setDefaultCloseOperation(3);
         
         //Initialize uninitialized GUI elements
-        for (int i = 0; i<10; i++){
+        for (int i = 0; i<12; i++){
             add[i] = new JButton("+1");
             subtract[i] = new JButton("-1");
             label[i] = new JLabel("0");
@@ -134,7 +137,7 @@ public class ScoutingGUI extends JFrame
         
         //Add identical buttons and their respective labels/action listeners
         
-        for (int i = 0; i<10; i++){
+        for (int i = 0; i<12; i++){
             if (i == 0){                    
                 this.jp.add(autoAttempt);
             }
@@ -162,8 +165,14 @@ public class ScoutingGUI extends JFrame
             else if (i==8){
                 this.jp.add(tele_1);
             }
-            else{
+            else if (i==9){
                 this.jp.add(pyramid);
+            }
+            else if (i==10){
+                this.jp.add(fouls);
+            }
+            else{
+                this.jp.add(tfouls);
             }
             this.jp.add(this.subtract[i]);                      // -1
             this.jp.add(this.label[i]);                         // 0
@@ -258,14 +267,14 @@ public class ScoutingGUI extends JFrame
                     File file = fc.getSelectedFile();
                     String path = file.getAbsolutePath();
                 
-                    int[] data = new int[10];
-                    for (int i = 0; i<10; i++){
+                    int[] data = new int[12];
+                    for (int i = 0; i<12; i++){
                         data[i] = integer(label[i].getText());
                     }
 
                     Scouter.save(path, teamNumber.getText(), matchNumber.getText(), BorR, 
                             Dlevel, data[0], data[1], data[2], data[3], data[4], 
-                            data[5], data[6], data[7], data[8], data[9], climb_level);                }
+                            data[5], data[6], data[7], data[8], data[9], data[10], data[11], climb_level);                }
             }
         });
         
