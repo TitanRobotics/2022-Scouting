@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import net.miginfocom.swing.MigLayout;
 
 public class ScoutingGUI extends JFrame
   implements ActionListener{
@@ -62,7 +63,6 @@ public class ScoutingGUI extends JFrame
 
     JLabel sweetSpot = new JLabel("Sweet Spot Location:");
     JTextField sSpot = new JTextField(15);
-    JLabel space = new JLabel("                                                                         ");
     JLabel notesLabel = new JLabel("Notes:");
     JTextField notes = new JTextField(30);
     
@@ -77,10 +77,10 @@ public class ScoutingGUI extends JFrame
     JLabel auto_2 = new JLabel(" 1(2) Pointer shots Made ");
     JLabel autoPickup = new JLabel("Autonomous disks picked up");
     //JLabel tele = new JLabel("Tele-OP");
-    JLabel teleAttempt = new JLabel(" Tele-Op Shots Attempted ");
-    JLabel tele_3 = new JLabel("    3 Pointer shots Made    ");
-    JLabel tele_2 = new JLabel("    2 Pointer shots Made    ");
-    JLabel tele_1 = new JLabel("    1 Pointer shots Made    ");
+    JLabel teleAttempt = new JLabel("Tele-Op Shots Attempted");
+    JLabel tele_3 = new JLabel("3 Pointer shots Made");
+    JLabel tele_2 = new JLabel("2 Pointer shots Made");
+    JLabel tele_1 = new JLabel("1 Pointer shots Made");
     
     JLabel pyramid = new JLabel("    Pyramid shots Made    ");
     
@@ -105,14 +105,14 @@ public class ScoutingGUI extends JFrame
     final JFileChooser fc = new JFileChooser();
     JButton save = new JButton("Save Results");
 
-    JPanel jp = new JPanel();
+    JPanel jp = new JPanel(new MigLayout("fill"));
     
     public ScoutingGUI()throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
             
         //Create the window
         setTitle("Scouter 2013");
         setVisible(true);
-        setSize(440, 700);
+        setSize(520, 700);
         setResizable(true);
         setDefaultCloseOperation(3);
         
@@ -124,17 +124,17 @@ public class ScoutingGUI extends JFrame
         }
         
         //Add GUI elements to JPanel
-        this.jp.add(matchInfo);
+        this.jp.add(matchInfo,"split 6");
         this.jp.add(teamNumber);
         this.jp.add(matchNumber);
         this.jp.add(color);
         this.jp.add(blue);
-        this.jp.add(red);
-        this.jp.add(sweetSpot);
-        this.jp.add(sSpot);        
-        this.jp.add(this.FeederPickup);
+        this.jp.add(red, "wrap");
+        this.jp.add(sweetSpot,"split 2");
+        this.jp.add(sSpot, "wrap");        
+        this.jp.add(this.FeederPickup,"split 3");
         this.jp.add(this.FloorPickup);
-        this.jp.add(this.BothPickup);
+        this.jp.add(this.BothPickup, "wrap");
         
         //Add action listeners to previous GUI elements
 
@@ -154,45 +154,46 @@ public class ScoutingGUI extends JFrame
         //Add identical buttons and their respective labels/action listeners
         
         for (int i = 0; i<12; i++){
-            if (i == 0){                    
-                this.jp.add(autoAttempt);
-            }
-            else if (i == 1){
-                this.jp.add(auto6);
-            }
-            else if (i == 2){
-                this.jp.add(auto4);
-            }
-            else if (i == 3){
-                this.jp.add(auto_2);
-            }
-            else if (i == 4){
-                this.jp.add(autoPickup);
-            }
-            else if (i == 5){
-                this.jp.add(teleAttempt);
-            }
-            else if (i == 6){
-                this.jp.add(tele_3);
-            }
-            else if (i == 7){
-                this.jp.add(tele_2);
-            }
-            else if (i==8){
-                this.jp.add(tele_1);
-            }
-            else if (i==9){
-                this.jp.add(pyramid);
-            }
-            else if (i==10){
-                this.jp.add(fouls);
-            }
-            else{
-                this.jp.add(tfouls);
-            }
-            this.jp.add(this.subtract[i]);                      // -1
+            this.jp.add(this.subtract[i], "split 4");                      // -1
             this.jp.add(this.label[i]);                         // 0
             this.jp.add(this.add[i]);                           // +1
+            
+            if (i == 0){                    
+                this.jp.add(autoAttempt, "wrap");
+            }
+            else if (i == 1){
+                this.jp.add(auto6, "wrap");
+            }
+            else if (i == 2){
+                this.jp.add(auto4,"wrap");
+            }
+            else if (i == 3){
+                this.jp.add(auto_2,"wrap");
+            }
+            else if (i == 4){
+                this.jp.add(autoPickup,"wrap");
+            }
+            else if (i == 5){
+                this.jp.add(teleAttempt,"wrap");
+            }
+            else if (i == 6){
+                this.jp.add(tele_3,"wrap");
+            }
+            else if (i == 7){
+                this.jp.add(tele_2,"wrap");
+            }
+            else if (i==8){
+                this.jp.add(tele_1,"wrap");
+            }
+            else if (i==9){
+                this.jp.add(pyramid,"wrap");
+            }
+            else if (i==10){
+                this.jp.add(fouls,"wrap");
+            }
+            else{
+                this.jp.add(tfouls,"wrap");
+            }
 
             final int j = i;                                    //appease the inner class
 
@@ -218,18 +219,17 @@ public class ScoutingGUI extends JFrame
         
         //Add final GUI elements
         
-        this.jp.add(this.climb);
+        this.jp.add(this.climb,"split 5");
         this.jp.add(this.climbPoints);
         this.jp.add(this.climb1);
         this.jp.add(this.climb2);
-        this.jp.add(this.climb3);
-        this.jp.add(this.DefenseGood);
+        this.jp.add(this.climb3,"wrap");
+        this.jp.add(this.DefenseGood,"split 4");
         this.jp.add(this.DefenseMeh);
         this.jp.add(this.DefenseBad);
-        this.jp.add(this.DefenseNo);
-        this.jp.add(space);
-        this.jp.add(notesLabel);
-        this.jp.add(notes);
+        this.jp.add(this.DefenseNo,"wrap");
+        this.jp.add(notesLabel,"split 2");
+        this.jp.add(notes,"wrap");
         this.jp.add(this.save);
         
         //Add action listeners to previous GUI elements
