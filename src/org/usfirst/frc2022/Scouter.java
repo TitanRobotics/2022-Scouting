@@ -7,7 +7,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class Scouter 
 {
-    public static void save(String path, String i, String j, int pu, boolean k, int m, int aa, int a3, int a2, int a1, int ap, int ta, int t3, int t2, int t1,int p, int f, int tf, int c) {
+    public static void save(String path, String i, String j, int pu, boolean k, int m, int aa, int a3, int a2, int a1, int ap, int ta, int t3, int t2, int t1,int p, int f, int tf, int c, String ss, String n) {
 
         String BlueOrRed;
         if (k){
@@ -44,9 +44,10 @@ public class Scouter
           e.printStackTrace();
         }
 
-        String[] info = (i + "#" + j + "#" + BlueOrRed + "#" + PickupType + "#" + DefenseLevel + "#" + aa + "#"
-                + a3 + "#" + a2 + "#" + a1 + "#" + ap + "#" + ta + "#" + t3 + "#"
-                + t2 + "#" + t1 + "#" + p + "#" + c + "#" + f + "#" + tf + "#" + sum).split("#");
+        String[] info = (i + "#" + j + "#" + BlueOrRed + "#" +  ss + "#" + PickupType + "#" 
+                + DefenseLevel + "#" + aa + "#" + a3 + "#" + a2 + "#" + a1 + "#" + ap + "#" + 
+                ta + "#" + t3 + "#" + t2 + "#" + t1 + "#" + p + "#" + c + "#" + f + "#" + tf + "#" 
+                + sum + "#" + n).split("#");
 
         writer.writeNext(info);
         try
