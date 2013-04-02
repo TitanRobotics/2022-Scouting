@@ -47,6 +47,7 @@ public class ScoutingGUI extends JFrame
     String team = "";
     String match = "";
     boolean BorR = false;
+    int pickup = 1;
     int Dlevel = 0;
     int climb_level = 0;
     
@@ -86,10 +87,14 @@ public class ScoutingGUI extends JFrame
     JButton climb2 = new JButton("20");
     JButton climb3 = new JButton("30");
     
-  JButton DefenseGood = new JButton("Good Defense");
-  JButton DefenseMeh = new JButton("Meh Defense");
-  JButton DefenseBad = new JButton("Bad Defense");
-  JButton DefenseNo = new JButton("No Defense");
+    JButton FloorPickup = new JButton("Floor Pickup");
+    JButton FeederPickup = new JButton("Feeder Pickup");
+    JButton BothPickup = new JButton("Both Pickup Types");
+    
+    JButton DefenseGood = new JButton("Good Defense");
+    JButton DefenseMeh = new JButton("Meh Defense");
+    JButton DefenseBad = new JButton("Bad Defense");
+    JButton DefenseNo = new JButton("No Defense");
   
     final JFileChooser fc = new JFileChooser();
     JButton save = new JButton("Save Results");
@@ -101,7 +106,7 @@ public class ScoutingGUI extends JFrame
         //Create the window
         setTitle("Scouter 2013");
         setVisible(true);
-        setSize(400, 575);
+        setSize(440, 600);
         setResizable(true);
         setDefaultCloseOperation(3);
         
@@ -119,6 +124,9 @@ public class ScoutingGUI extends JFrame
         this.jp.add(color);
         this.jp.add(blue);
         this.jp.add(red);
+        this.jp.add(this.FeederPickup);
+        this.jp.add(this.FloorPickup);
+        this.jp.add(this.BothPickup);
         
         //Add action listeners to previous GUI elements
 
@@ -234,6 +242,22 @@ public class ScoutingGUI extends JFrame
                 climbPoints.setText("30    ");
             }
         });
+        
+       this.FeederPickup.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pickup = 1;
+            }
+        });
+       this.BothPickup.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               pickup = 2;
+            }
+        });
+       this.FloorPickup.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               pickup = 3;
+            }
+        });
     
         this.DefenseGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -272,7 +296,7 @@ public class ScoutingGUI extends JFrame
                         data[i] = integer(label[i].getText());
                     }
 
-                    Scouter.save(path, teamNumber.getText(), matchNumber.getText(), BorR, 
+                    Scouter.save(path, teamNumber.getText(), matchNumber.getText(), pickup, BorR, 
                             Dlevel, data[0], data[1], data[2], data[3], data[4], 
                             data[5], data[6], data[7], data[8], data[9], data[10], data[11], climb_level);                }
             }
