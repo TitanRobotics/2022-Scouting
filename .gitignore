@@ -7,3 +7,6 @@
 
 # Allow OpenCSV jar #
 !opencsv-2.3.jar
+!miglayout-4.0
+!miglayout-4.0-javadoc
+!miglayout-4.0-swing
