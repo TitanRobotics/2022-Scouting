@@ -7,13 +7,22 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class Scouter 
 {
-    public static void save(String path, String i, String j, boolean k, int m, int aa, int a3, int a2, int a1, int ap, int ta, int t3, int t2, int t1,int p, int f, int tf, int c) {
+    public static void save(String path, String i, String j, int pu, boolean k, int m, int aa, int a3, int a2, int a1, int ap, int ta, int t3, int t2, int t1,int p, int f, int tf, int c) {
 
         String BlueOrRed;
         if (k){
           BlueOrRed = "Red";}
             else{
           BlueOrRed = "Blue";}
+        
+        String PickupType=String.valueOf(pu);
+        if (PickupType.equals("1")){
+            PickupType = "Feeder Pickup Only";}
+        if (PickupType.equals("2")){
+            PickupType = "Feeder and Floor Pickup";}
+        if (PickupType.equals("3")){
+            PickupType = "Floor Pickup Only";}
+        
         String DefenseLevel=String.valueOf(m);
         if (DefenseLevel.equals("3")){
           DefenseLevel = "Good Defense";}
@@ -21,7 +30,6 @@ public class Scouter
           DefenseLevel = "Meh Defense";}
         if (DefenseLevel.equals("1")){
           DefenseLevel = "Bad Defense";}
-
         if (DefenseLevel.equals("0")) { //This is weird but it doesn't work otherwise
           DefenseLevel = "No Defense";
         }
@@ -36,7 +44,7 @@ public class Scouter
           e.printStackTrace();
         }
 
-        String[] info = (i + "#" + j + "#" + BlueOrRed + "#" + DefenseLevel + "#" + aa + "#"
+        String[] info = (i + "#" + j + "#" + BlueOrRed + "#" + PickupType + "#" + DefenseLevel + "#" + aa + "#"
                 + a3 + "#" + a2 + "#" + a1 + "#" + ap + "#" + ta + "#" + t3 + "#"
                 + t2 + "#" + t1 + "#" + p + "#" + c + "#" + f + "#" + tf + "#" + sum).split("#");
 
