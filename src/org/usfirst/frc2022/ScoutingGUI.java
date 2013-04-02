@@ -44,8 +44,8 @@ public class ScoutingGUI extends JFrame
     
     //Declaration of data-holding variables
     
-    String team = "";
-    String match = "";
+//    String team = "";
+//    String match = "";
     boolean BorR = false;
     int pickup = 1;
     int Dlevel = 0;
@@ -60,6 +60,12 @@ public class ScoutingGUI extends JFrame
     JButton blue = new JButton("Blue");
     JButton red = new JButton("Red");
 
+    JLabel sweetSpot = new JLabel("Sweet Spot Location:");
+    JTextField sSpot = new JTextField(15);
+    JLabel space = new JLabel("                                                                         ");
+    JLabel notesLabel = new JLabel("Notes:");
+    JTextField notes = new JTextField(30);
+    
     JButton[] add = new JButton[12];
     JButton[] subtract = new JButton[12];
     JLabel[] label = new JLabel[12];
@@ -106,7 +112,7 @@ public class ScoutingGUI extends JFrame
         //Create the window
         setTitle("Scouter 2013");
         setVisible(true);
-        setSize(440, 600);
+        setSize(440, 700);
         setResizable(true);
         setDefaultCloseOperation(3);
         
@@ -124,6 +130,8 @@ public class ScoutingGUI extends JFrame
         this.jp.add(color);
         this.jp.add(blue);
         this.jp.add(red);
+        this.jp.add(sweetSpot);
+        this.jp.add(sSpot);        
         this.jp.add(this.FeederPickup);
         this.jp.add(this.FloorPickup);
         this.jp.add(this.BothPickup);
@@ -219,6 +227,9 @@ public class ScoutingGUI extends JFrame
         this.jp.add(this.DefenseMeh);
         this.jp.add(this.DefenseBad);
         this.jp.add(this.DefenseNo);
+        this.jp.add(space);
+        this.jp.add(notesLabel);
+        this.jp.add(notes);
         this.jp.add(this.save);
         
         //Add action listeners to previous GUI elements
@@ -298,7 +309,8 @@ public class ScoutingGUI extends JFrame
 
                     Scouter.save(path, teamNumber.getText(), matchNumber.getText(), pickup, BorR, 
                             Dlevel, data[0], data[1], data[2], data[3], data[4], 
-                            data[5], data[6], data[7], data[8], data[9], data[10], data[11], climb_level);                }
+                            data[5], data[6], data[7], data[8], data[9], data[10], data[11], climb_level, 
+                            sSpot.getText(), notes.getText());                }
             }
         });
         
