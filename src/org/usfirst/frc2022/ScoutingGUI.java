@@ -3,12 +3,20 @@ package org.usfirst.frc2022;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import net.miginfocom.swing.MigLayout;
@@ -43,64 +51,78 @@ public class ScoutingGUI extends JFrame
         return number.intValue();
     }
     
+    /**
+     * Displays the "About Scouter" dialog
+     */
+    
     //Declaration of data-holding variables
     
-//    String team = "";
-//    String match = "";
-    boolean BorR = false;
+    boolean bOrR = false;
     int pickup = 1;
-    int Dlevel = 0;
-    int climb_level = 0;
+    int dLevel = 0;
+    int climbLevel = 0;
     
     //Declaration of GUI elements
+    
+    JMenuBar menuBar = new JMenuBar();
+    //JMenu file = new JMenu("File");
+    //JMenuItem saveAs = new JMenuItem("Save");
+    //JMenuItem exit = new JMenuItem("Exit");
+    JMenu help = new JMenu("Help");
+    JMenuItem about = new JMenuItem("About Scouter");
     
     JTextField teamNumber = new JTextField(4);
     JTextField matchNumber = new JTextField(2);
     JLabel matchInfo = new JLabel("Match Info:");
     JLabel color = new JLabel(" Color: ");
-    JButton blue = new JButton("Blue");
-    JButton red = new JButton("Red");
+    ButtonGroup colorGroup = new ButtonGroup();
+    JToggleButton blue = new JToggleButton("Blue");
+    JToggleButton red = new JToggleButton("Red");
 
     JLabel sweetSpot = new JLabel("Sweet Spot Location:");
     JTextField sSpot = new JTextField(15);
-    JLabel notesLabel = new JLabel("Notes:");
+    JLabel notesLabel = new JLabel("Quick notes:");
     JTextField notes = new JTextField(30);
+    
+    ButtonGroup pickupGroup = new ButtonGroup();
+    JToggleButton floorPickup = new JToggleButton("Floor Pickup");
+    JToggleButton feederPickup = new JToggleButton("Feeder Pickup");
+    JToggleButton bothPickup = new JToggleButton("Both Pickup Types");
     
     JButton[] add = new JButton[12];
     JButton[] subtract = new JButton[12];
     JLabel[] label = new JLabel[12];
     
     //JLabel auto = new JLabel("Autonomous");
-    JLabel autoAttempt = new JLabel("Autonomous Shots Attempted");
+    JLabel autoAttempt = new JLabel(" Autonomous Shots Attempted");
     JLabel auto6 = new JLabel(" 3(6) Pointer shots Made ");
     JLabel auto4 = new JLabel(" 2(4) Pointer shots Made ");
-    JLabel auto_2 = new JLabel(" 1(2) Pointer shots Made ");
-    JLabel autoPickup = new JLabel("Autonomous disks picked up");
+    JLabel auto2 = new JLabel(" 1(2) Pointer shots Made ");
+    JLabel autoPickup = new JLabel(" Autonomous disks picked up");
     //JLabel tele = new JLabel("Tele-OP");
-    JLabel teleAttempt = new JLabel("Tele-Op Shots Attempted");
-    JLabel tele_3 = new JLabel("3 Pointer shots Made");
-    JLabel tele_2 = new JLabel("2 Pointer shots Made");
-    JLabel tele_1 = new JLabel("1 Pointer shots Made");
+    JLabel teleAttempt = new JLabel(" Tele-Op Shots Attempted");
+    JLabel tele3 = new JLabel(" 3 Pointer shots Made");
+    JLabel tele2 = new JLabel(" 2 Pointer shots Made");
+    JLabel tele1 = new JLabel(" 1 Pointer shots Made");
     
-    JLabel pyramid = new JLabel("    Pyramid shots Made    ");
+    JLabel pyramid = new JLabel(" Pyramid shots Made");
     
-    JLabel fouls = new JLabel("    Fouls Made    ");
-    JLabel tfouls = new JLabel("    Technical Fouls Made    ");
+    JLabel fouls = new JLabel(" Fouls Made");
+    JLabel tFouls = new JLabel(" Technical Fouls Made");
     
-    JLabel climb = new JLabel("    Climb Points Gained:  ");
-    JLabel climbPoints = new JLabel(this.climb_level + "    ");
-    JButton climb1 = new JButton("10");
-    JButton climb2 = new JButton("20");
-    JButton climb3 = new JButton("30");
+    JLabel climb = new JLabel("Climb Points Gained:");
+    JLabel climbPoints = new JLabel(this.climbLevel + "    ");
+    ButtonGroup climbGroup = new ButtonGroup();
+    JToggleButton climb0 = new JToggleButton("0");
+    JToggleButton climb1 = new JToggleButton("10");
+    JToggleButton climb2 = new JToggleButton("20");
+    JToggleButton climb3 = new JToggleButton("30");
     
-    JButton FloorPickup = new JButton("Floor Pickup");
-    JButton FeederPickup = new JButton("Feeder Pickup");
-    JButton BothPickup = new JButton("Both Pickup Types");
-    
-    JButton DefenseGood = new JButton("Good Defense");
-    JButton DefenseMeh = new JButton("Meh Defense");
-    JButton DefenseBad = new JButton("Bad Defense");
-    JButton DefenseNo = new JButton("No Defense");
+    ButtonGroup defenseGroup = new ButtonGroup();
+    JToggleButton defenseGood = new JToggleButton("Good Defense");
+    JToggleButton defenseFair = new JToggleButton("Fair Defense");
+    JToggleButton defensePoor = new JToggleButton("Poor Defense");
+    JToggleButton defenseNo = new JToggleButton("No Defense");
   
     final JFileChooser fc = new JFileChooser();
     JButton save = new JButton("Save Results");
@@ -112,9 +134,9 @@ public class ScoutingGUI extends JFrame
         //Create the window
         setTitle("Scouter 2013");
         setVisible(true);
-        setSize(520, 700);
-        setResizable(true);
-        setDefaultCloseOperation(3);
+        setSize(460, 695);
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Initialize uninitialized GUI elements
         for (int i = 0; i<12; i++){
@@ -123,31 +145,54 @@ public class ScoutingGUI extends JFrame
             label[i] = new JLabel("0");
         }
         
+        //Create menu bar
+        
+        menuBar.add(help);
+        help.add(about);
+        //menuBar.add(file);
+        //file.add(saveAs);
+        //file.addSeparator();
+        //file.add(exit);
+        
+        //Add menu item action listener(s)
+        
+        about.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Scouter.aboutScouter.setVisible(true);
+            }
+        });
+        
         //Add GUI elements to JPanel
+        this.setJMenuBar(menuBar);
         this.jp.add(matchInfo,"split 6");
         this.jp.add(teamNumber);
         this.jp.add(matchNumber);
         this.jp.add(color);
         this.jp.add(blue);
         this.jp.add(red, "wrap");
+        colorGroup.add(blue);
+        colorGroup.add(red);
         this.jp.add(sweetSpot,"split 2");
         this.jp.add(sSpot, "wrap");        
-        this.jp.add(this.FeederPickup,"split 3");
-        this.jp.add(this.FloorPickup);
-        this.jp.add(this.BothPickup, "wrap");
+        this.jp.add(feederPickup,"split 3");
+        this.jp.add(floorPickup);
+        this.jp.add(bothPickup, "wrap");
+        pickupGroup.add(feederPickup);
+        pickupGroup.add(floorPickup);
+        pickupGroup.add(bothPickup);
+        
         
         //Add action listeners to previous GUI elements
 
-    
         this.blue.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                BorR = false;
+                bOrR = false;
             }
         });
     
         this.red.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                BorR = true;
+                bOrR = true;
             }
         });
         
@@ -168,7 +213,7 @@ public class ScoutingGUI extends JFrame
                 this.jp.add(auto4,"wrap");
             }
             else if (i == 3){
-                this.jp.add(auto_2,"wrap");
+                this.jp.add(auto2,"wrap");
             }
             else if (i == 4){
                 this.jp.add(autoPickup,"wrap");
@@ -177,13 +222,13 @@ public class ScoutingGUI extends JFrame
                 this.jp.add(teleAttempt,"wrap");
             }
             else if (i == 6){
-                this.jp.add(tele_3,"wrap");
+                this.jp.add(tele3,"wrap");
             }
             else if (i == 7){
-                this.jp.add(tele_2,"wrap");
+                this.jp.add(tele2,"wrap");
             }
             else if (i==8){
-                this.jp.add(tele_1,"wrap");
+                this.jp.add(tele1,"wrap");
             }
             else if (i==9){
                 this.jp.add(pyramid,"wrap");
@@ -192,7 +237,7 @@ public class ScoutingGUI extends JFrame
                 this.jp.add(fouls,"wrap");
             }
             else{
-                this.jp.add(tfouls,"wrap");
+                this.jp.add(tFouls,"wrap");
             }
 
             final int j = i;                                    //appease the inner class
@@ -219,77 +264,94 @@ public class ScoutingGUI extends JFrame
         
         //Add final GUI elements
         
-        this.jp.add(this.climb,"split 5");
+        this.jp.add(this.climb,"split 6");
         this.jp.add(this.climbPoints);
+        this.jp.add(this.climb0);
         this.jp.add(this.climb1);
         this.jp.add(this.climb2);
         this.jp.add(this.climb3,"wrap");
-        this.jp.add(this.DefenseGood,"split 4");
-        this.jp.add(this.DefenseMeh);
-        this.jp.add(this.DefenseBad);
-        this.jp.add(this.DefenseNo,"wrap");
+        climbGroup.add(climb0);
+        climbGroup.add(climb1);
+        climbGroup.add(climb2);
+        climbGroup.add(climb3);
+        this.jp.add(this.defenseGood,"split 4");
+        this.jp.add(this.defenseFair);
+        this.jp.add(this.defensePoor);
+        this.jp.add(this.defenseNo,"wrap");
+        defenseGroup.add(defenseGood);
+        defenseGroup.add(defenseFair);
+        defenseGroup.add(defensePoor);
+        defenseGroup.add(defenseNo);
         this.jp.add(notesLabel,"split 2");
         this.jp.add(notes,"wrap");
         this.jp.add(this.save);
         
         //Add action listeners to previous GUI elements
+        
+        this.climb0.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                climbLevel = 0;
+                climbPoints.setText("0    ");
+            }
+        });
+        
         this.climb1.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                climb_level = 1;
+                climbLevel = 1;
                 climbPoints.setText("10    ");
             }
         });
     
         this.climb2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                climb_level = 2;
+                climbLevel = 2;
                 climbPoints.setText("20    ");
             }
         });
     
         this.climb3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                climb_level = 3;
+                climbLevel = 3;
                 climbPoints.setText("30    ");
             }
         });
         
-       this.FeederPickup.addActionListener(new ActionListener() {
+       this.feederPickup.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 pickup = 1;
             }
         });
-       this.BothPickup.addActionListener(new ActionListener() {
+       this.bothPickup.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                pickup = 2;
             }
         });
-       this.FloorPickup.addActionListener(new ActionListener() {
+       this.floorPickup.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                pickup = 3;
             }
         });
     
-        this.DefenseGood.addActionListener(new ActionListener() {
+        this.defenseGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Dlevel = 3;
+                dLevel = 3;
             }
         });
     
-        this.DefenseMeh.addActionListener(new ActionListener() {
+        this.defenseFair.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Dlevel = 2;
+                dLevel = 2;
             }
         });
-        this.DefenseBad.addActionListener(new ActionListener() {
+        this.defensePoor.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Dlevel = 1;
+                dLevel = 1;
             }
         });
               
-        this.DefenseNo.addActionListener(new ActionListener() {
+        this.defenseNo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Dlevel = 0;
+                dLevel = 0;
             }
         });
         
@@ -307,16 +369,16 @@ public class ScoutingGUI extends JFrame
                         data[i] = integer(label[i].getText());
                     }
 
-                    Scouter.save(path, teamNumber.getText(), matchNumber.getText(), pickup, BorR, 
-                            Dlevel, data[0], data[1], data[2], data[3], data[4], 
-                            data[5], data[6], data[7], data[8], data[9], data[10], data[11], climb_level, 
+                    Scouter.save(path, teamNumber.getText(), matchNumber.getText(), pickup, bOrR, 
+                            dLevel, data[0], data[1], data[2], data[3], data[4], 
+                            data[5], data[6], data[7], data[8], data[9], data[10], data[11], climbLevel, 
                             sSpot.getText(), notes.getText());                }
             }
         });
         
         //Add the JPanel with all of the elements to the window
         add(this.jp);
-        
+        jp.updateUI();
         //Set the look and feel of the window to the OS's look and feel
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         

@@ -7,6 +7,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class Scouter 
 {
+    public static AboutGUI aboutScouter;
+    
     public static void save(String path, String i, String j, int pu, boolean k, int m, int aa, int a3, int a2, int a1, int ap, int ta, int t3, int t2, int t1,int p, int f, int tf, int c, String ss, String n) {
 
         String BlueOrRed;
@@ -58,8 +60,9 @@ public class Scouter
           e.printStackTrace();
         }
     }
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException
     {
       ScoutingGUI GUI = new ScoutingGUI();
+      aboutScouter = new AboutGUI();
     }
 }

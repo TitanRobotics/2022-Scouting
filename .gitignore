@@ -4,6 +4,7 @@
 *.jar
 *.war
 *.ear
+*.DS_Store
 
 # Allow OpenCSV jar #
 !opencsv-2.3.jar
