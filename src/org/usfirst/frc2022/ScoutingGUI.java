@@ -79,6 +79,8 @@ public class ScoutingGUI extends JFrame
     JToggleButton blue = new JToggleButton("Blue");
     JToggleButton red = new JToggleButton("Red");
 
+    JLabel startingPos = new JLabel("Starting Position:");
+    JTextField sPos = new JTextField(15);   
     JLabel sweetSpot = new JLabel("Sweet Spot Location:");
     JTextField sSpot = new JTextField(15);
     JLabel notesLabel = new JLabel("Other notes:");
@@ -134,7 +136,7 @@ public class ScoutingGUI extends JFrame
         //Create the window
         setTitle("Scouter 2013");
         setVisible(true);
-        setSize(530, 695);
+        setSize(530, 710);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -172,6 +174,8 @@ public class ScoutingGUI extends JFrame
         this.jp.add(red, "wrap");
         colorGroup.add(blue);
         colorGroup.add(red);
+        this.jp.add(startingPos,"split 2");
+        this.jp.add(sPos, "wrap");  
         this.jp.add(sweetSpot,"split 2");
         this.jp.add(sSpot, "wrap");        
         this.jp.add(feederPickup,"split 3");
@@ -369,10 +373,10 @@ public class ScoutingGUI extends JFrame
                         data[i] = integer(label[i].getText());
                     }
 
-                    Scouter.save(path, teamNumber.getText(), matchNumber.getText(), pickup, bOrR, 
+                    Scouter.save(path, teamNumber.getText(), matchNumber.getText(), pickup, bOrR,
                             dLevel, data[0], data[1], data[2], data[3], data[4], 
                             data[5], data[6], data[7], data[8], data[9], data[10], data[11], climbLevel, 
-                            sSpot.getText(), notes.getText());                }
+                            sSpot.getText(), sPos.getText(), notes.getText());                }
             }
         });
         
