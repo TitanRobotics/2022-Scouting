@@ -81,7 +81,7 @@ public class ScoutingGUI extends JFrame
 
     JLabel sweetSpot = new JLabel("Sweet Spot Location:");
     JTextField sSpot = new JTextField(15);
-    JLabel notesLabel = new JLabel("Quick notes:");
+    JLabel notesLabel = new JLabel("Other notes:");
     JTextField notes = new JTextField(30);
     
     ButtonGroup pickupGroup = new ButtonGroup();
@@ -134,7 +134,7 @@ public class ScoutingGUI extends JFrame
         //Create the window
         setTitle("Scouter 2013");
         setVisible(true);
-        setSize(460, 695);
+        setSize(530, 695);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
