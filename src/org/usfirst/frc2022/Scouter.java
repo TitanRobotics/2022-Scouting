@@ -40,7 +40,7 @@ public class Scouter
 
         CSVWriter writer = null;
         try {
-          writer = new CSVWriter(new FileWriter(path+".csv"));
+          writer = new CSVWriter(new FileWriter(path+".csv",true));
         }
         catch (IOException e) {
           e.printStackTrace();
